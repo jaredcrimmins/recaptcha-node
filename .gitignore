@@ -1,0 +1,16 @@
+# Ignore everything in the root of the repo so that files can be explicitly
+# whitelisted.
+/*
+
+# Directories
+!.vscode/
+!src/
+
+# Files
+!.gitignore
+!.npmignore
+!LICENSE
+!package-lock.json
+!package.json
+!README.md
+!tsconfig.json
