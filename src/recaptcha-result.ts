@@ -1,10 +1,10 @@
 type RecaptchaResultCreationAttrs = {
   challenge_ts: string;
   'error-codes'?: string[];
-  'apk_package_name'?: string;
+  apk_package_name?: string;
   hostname?: string;
   success: boolean;
-}
+};
 
 export abstract class RecaptchaResult {
   apkPackageName?: string;
@@ -32,7 +32,7 @@ export class RecaptchaV2Result extends RecaptchaResult {
 type RecaptchaV3ResultCreationAttrs = RecaptchaResultCreationAttrs & {
   action: string;
   score: number;
-}
+};
 
 export class RecaptchaV3Result extends RecaptchaResult {
   action: string;

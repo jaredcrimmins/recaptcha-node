@@ -3,7 +3,7 @@ import * as https from 'https';
 
 const BASE_REQUEST_OPTIONS = {
   headers: {
-    'content-length': 0
+    'content-length': 0,
   },
   method: 'POST',
 };
@@ -13,7 +13,7 @@ type ResponseBody = any;
 
 export type ClientOptions = https.RequestOptions & {
   timeout?: number;
-}
+};
 
 export function request(options: ClientOptions): Promise<ResponseBody> {
   return new Promise((resolve, reject) => {
@@ -21,23 +21,24 @@ export function request(options: ClientOptions): Promise<ResponseBody> {
     const request = https.request(requestOptions, response => {
       const data: Uint8Array[] = [];
 
-      response.on('data', (chunk: Uint8Array) => {
-        data.push(chunk);
-      })
-      .on('end', () => {
-        const rawData = parseResponseData(data);
+      response
+        .on('data', (chunk: Uint8Array) => {
+          data.push(chunk);
+        })
+        .on('end', () => {
+          const rawData = parseResponseData(data);
 
-        if (rawData instanceof Error) {
-          reject(
-            new errors.RecaptchaAPIError({
-              original: rawData,
-              message: 'The server\s response was not understandable.'
-            })
-          );
-        } else {
-          resolve(rawData);
-        }
-      });
+          if (rawData instanceof Error) {
+            reject(
+              new errors.RecaptchaAPIError({
+                original: rawData,
+                message: 'The servers response was not understandable.',
+              })
+            );
+          } else {
+            resolve(rawData);
+          }
+        });
     });
 
     if (options.timeout) request.setTimeout(options.timeout);

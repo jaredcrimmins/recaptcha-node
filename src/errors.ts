@@ -4,11 +4,12 @@ type BaseErrorCreationAttrs = {
 
   /** A human-readable description of the error. */
   message?: string;
-}
+};
 
 export type RecaptchaErrorCreationAttrs = BaseErrorCreationAttrs;
 
-export class RecaptchaError extends Error
+export class RecaptchaError
+  extends Error
   implements RecaptchaErrorCreationAttrs
 {
   original?: Error;
@@ -39,7 +40,7 @@ type ConnectionErrorCreationAttrs = BaseErrorCreationAttrs;
 
 export class RecaptchaConnectionError
   extends RecaptchaError
-  implements ConnectionErrorCreationAttrs 
+  implements ConnectionErrorCreationAttrs
 {
   type: 'connection-error';
 
