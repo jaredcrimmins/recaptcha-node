@@ -9,8 +9,11 @@
 
 # Files
 !.commitlintrc.json
+!.eslintignore
+!.eslintrc.json
 !.gitignore
 !.npmignore
+!.prettierrc.js
 !LICENSE
 !package-lock.json
 !package.json

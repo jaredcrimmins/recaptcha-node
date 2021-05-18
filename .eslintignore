@@ -1,0 +1,6 @@
+# Ignore everything in the root of the repo so that files can be explicitly
+# whitelisted.
+/*
+
+# Directories
+!src/
