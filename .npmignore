@@ -1,5 +1,12 @@
-.git/
-.gitignore
-node_modules/
-src/
-tsconfig.json
+# Ignore everything in the root of the repo so that files can be explicitly
+# whitelisted.
+/*
+
+# Directories
+!dist/
+
+# Files
+!LICENSE
+!package-lock.json
+!package.json
+!README.md
