@@ -3,10 +3,12 @@
 /*
 
 # Directories
+!.husky
 !.vscode/
 !src/
 
 # Files
+!.commitlintrc.json
 !.gitignore
 !.npmignore
 !LICENSE
