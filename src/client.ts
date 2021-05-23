@@ -52,7 +52,11 @@ export function request(options: ClientOptions): Promise<ResponseBody> {
         });
     });
 
-    if (options.timeout) request.setTimeout(options.timeout);
+    if (options.timeout) {
+      request.setTimeout(options.timeout, () => {
+        reject(new errors.RecaptchaConnectionError());
+      });
+    }
 
     request.on('error', error => {
       reject(new errors.RecaptchaConnectionError(error));
