@@ -52,9 +52,11 @@ abstract class Recaptcha implements RecaptchaOptions {
     this.agent = options.agent;
     this.hostname = options.hostname || 'google.com';
     this.protocol = options.protocol || 'https:';
-    this.port = options.port || this.protocol === 'https:' ? 443 : 80;
     this.timeout = options.timeout;
     this.secretKey = secretKey;
+
+    if (options.port) this.port = options.port;
+    else this.port = this.protocol === 'https:' ? 443 : 80;
   }
 
   set protocol(value) {
