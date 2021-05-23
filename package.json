@@ -1,7 +1,7 @@
 {
   "name": "recaptcha-node",
   "version": "0.1.0",
-  "description": "A library to verify reCAPTCHA V2/V3 response tokens received from a client.",
+  "description": "A Node.js library to verify reCAPTCHA v2/v3 response tokens received from a client.",
   "homepage": "https://github.com/jaredcrimmins/recaptcha-node#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
