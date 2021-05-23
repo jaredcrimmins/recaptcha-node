@@ -6,7 +6,7 @@ import {URLSearchParams} from 'url';
 export type SupportedProtocols = 'https' | 'http';
 
 export type RecaptchaOptions = {
-  agent?: Agent;
+  httpAgent?: Agent;
 
   /** The hostname that the client connects to. Setting this may be valueable for
    *  debugging/testing or if FreeSVG changes its API address.
@@ -21,7 +21,7 @@ export type RecaptchaOptions = {
 
 abstract class Recaptcha implements RecaptchaOptions {
   private _protocol: SupportedProtocols;
-  agent?: Agent;
+  httpAgent?: Agent;
   hostname?: string;
   port?: number | string;
   timeout?: number;
@@ -38,7 +38,7 @@ abstract class Recaptcha implements RecaptchaOptions {
     }
 
     this._protocol = 'https';
-    this.agent = options.agent;
+    this.httpAgent = options.httpAgent;
     this.hostname = options.hostname || 'google.com';
     this.protocol = options.protocol || 'https';
     this.timeout = options.timeout;
@@ -75,6 +75,7 @@ abstract class Recaptcha implements RecaptchaOptions {
   _getClientOptions(responseToken: string, remoteIP?: string): ClientOptions {
     return {
       hostname: this.hostname,
+      httpAgent: this.httpAgent,
       port: this.port,
       protocol: this.protocol,
       path: this._getPathname(responseToken, remoteIP),

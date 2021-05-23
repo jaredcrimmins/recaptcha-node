@@ -13,7 +13,8 @@ const BASE_REQUEST_OPTIONS = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ResponseBody = any;
 
-export type ClientOptions = Omit<https.RequestOptions, 'protocol'> & {
+export type ClientOptions = Omit<https.RequestOptions, 'agent' | 'protocol'> & {
+  httpAgent?: https.Agent;
   timeout?: number;
   protocol?: SupportedProtocols;
 };
