@@ -3,6 +3,8 @@ import {RecaptchaV2Result, RecaptchaV3Result} from './recaptcha-result';
 import {ClientOptions, request} from './client';
 import {URLSearchParams} from 'url';
 
+export type SupportedProtocols = 'https' | 'http';
+
 export type RecaptchaOptions = {
   agent?: Agent;
 
@@ -11,14 +13,14 @@ export type RecaptchaOptions = {
    */
   hostname?: string;
   port?: number | string;
-  protocol?: 'https:' | 'http:';
+  protocol?: SupportedProtocols;
 
   /** Milliseconds before a request times out. */
   timeout?: number;
 };
 
 abstract class Recaptcha implements RecaptchaOptions {
-  private _protocol?: 'https:' | 'http:';
+  private _protocol: SupportedProtocols;
   agent?: Agent;
   hostname?: string;
   port?: number | string;
@@ -35,20 +37,21 @@ abstract class Recaptcha implements RecaptchaOptions {
       throw new Error('A secret key must be provided.');
     }
 
+    this._protocol = 'https';
     this.agent = options.agent;
     this.hostname = options.hostname || 'google.com';
-    this.protocol = options.protocol || 'https:';
+    this.protocol = options.protocol || 'https';
     this.timeout = options.timeout;
     this.secretKey = secretKey;
 
     if (options.port) this.port = options.port;
-    else this.port = this.protocol === 'https:' ? 443 : 80;
+    else this.port = this.protocol === 'https' ? 443 : 80;
   }
 
   set protocol(value) {
-    if (value !== 'http:' && value !== 'https:') {
+    if (value !== 'http' && value !== 'https') {
       throw new Error(
-        `Protocol ${value} not supported. Expected "http:" or "https:"`
+        `Protocol ${value} not supported. Expected "http" or "https"`
       );
     }
 

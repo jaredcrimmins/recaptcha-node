@@ -1,3 +1,4 @@
+import {SupportedProtocols} from './recaptcha';
 import * as errors from './errors';
 import * as https from 'https';
 import * as http from 'http';
@@ -12,15 +13,19 @@ const BASE_REQUEST_OPTIONS = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ResponseBody = any;
 
-export type ClientOptions = https.RequestOptions & {
+export type ClientOptions = Omit<https.RequestOptions, 'protocol'> & {
   timeout?: number;
+  protocol?: SupportedProtocols;
 };
 
 export function request(options: ClientOptions): Promise<ResponseBody> {
   return new Promise((resolve, reject) => {
-    const requestOptions = Object.assign({}, BASE_REQUEST_OPTIONS, options);
     const requestClient =
-      options.protocol === 'https:' ? https.request : http.request;
+      options.protocol === 'https' ? https.request : http.request;
+    const requestOptions = Object.assign({}, BASE_REQUEST_OPTIONS, options);
+
+    delete requestOptions.protocol;
+
     const request = requestClient(requestOptions, response => {
       const data: Uint8Array[] = [];
 
