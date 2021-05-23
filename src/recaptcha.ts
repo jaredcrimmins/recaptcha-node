@@ -32,10 +32,10 @@ export type RecaptchaOptions = {
 };
 
 abstract class Recaptcha implements RecaptchaOptions {
+  private _protocol?: 'https:' | 'http:';
   agent?: Agent;
   hostname?: string;
   port?: number | string;
-  protocol?: 'https:' | 'http:';
   timeout?: number;
   secretKey: string;
 
@@ -44,7 +44,7 @@ abstract class Recaptcha implements RecaptchaOptions {
    * @param {string} secretKey - The secret key used for communication between
    * your site and reCAPTCHA.
    */
-  constructor(secretKey: string, options: RecaptchaOptions) {
+  constructor(secretKey: string, options: RecaptchaOptions = {}) {
     if (typeof secretKey !== 'string') {
       throw new Error('A secret key must be provided.');
     }
@@ -55,6 +55,20 @@ abstract class Recaptcha implements RecaptchaOptions {
     this.port = options.port || this.protocol === 'https:' ? 443 : 80;
     this.timeout = options.timeout;
     this.secretKey = secretKey;
+  }
+
+  set protocol(value) {
+    if (value !== 'http:' && value !== 'https:') {
+      throw new Error(
+        `Protocol ${value} not supported. Expected "http:" or "https:"`
+      );
+    }
+
+    this._protocol = value;
+  }
+
+  get protocol() {
+    return this._protocol;
   }
 
   _getClientOptions(responseToken: string, remoteIP?: string): ClientOptions {
