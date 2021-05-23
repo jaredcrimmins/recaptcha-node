@@ -44,13 +44,13 @@ type RecaptchaV3ResultCreationAttrs = RecaptchaResultCreationAttrs & {
 };
 
 export class RecaptchaV3Result extends RecaptchaResult {
-  /** The score for this request (0.0 - 1.0) */
+  /** The action name for this request */
   action: string;
 
   /** The hostname of the site where the reCAPTCHA was solved */
   hostname: string;
 
-  /** The action name for this request */
+  /** The score for this request (0.0 - 1.0) */
   score: number;
 
   constructor(attrs: RecaptchaV3ResultCreationAttrs) {
