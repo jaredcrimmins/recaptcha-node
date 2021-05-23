@@ -35,7 +35,7 @@ export function request(options: ClientOptions): Promise<ResponseBody> {
             reject(
               new errors.RecaptchaAPIError({
                 original: rawData,
-                message: 'The servers response was not understandable.',
+                message: "The server's response was not understandable.",
               })
             );
           } else {
