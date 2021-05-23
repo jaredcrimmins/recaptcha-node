@@ -75,7 +75,7 @@ abstract class Recaptcha implements RecaptchaOptions {
   _getClientOptions(responseToken: string, remoteIP?: string): ClientOptions {
     return {
       hostname: this.hostname,
-      httpAgent: this.httpAgent,
+      agent: this.httpAgent,
       port: this.port,
       protocol: this.protocol,
       path: this._getPathname(responseToken, remoteIP),
