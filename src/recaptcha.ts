@@ -3,21 +3,6 @@ import {RecaptchaV2Result, RecaptchaV3Result} from './recaptcha-result';
 import {ClientOptions, request} from './client';
 import {URLSearchParams} from 'url';
 
-type BaseRawRecaptchaResponse = {
-  challenge_ts: string;
-  'error-codes'?: string[];
-  apk_package_name?: string;
-  hostname?: string;
-  success: boolean;
-};
-
-type RawRecaptchaV2Response = BaseRawRecaptchaResponse;
-
-type RawRecaptchaV3Response = BaseRawRecaptchaResponse & {
-  action: string;
-  score: number;
-};
-
 export type RecaptchaOptions = {
   agent?: Agent;
 
@@ -109,11 +94,9 @@ export class RecaptchaV2 extends Recaptcha {
    * @param {string} [remoteIP] - Optional. The user's IP address.
    */
   verify(responseToken: string, remoteIP?: string): Promise<RecaptchaV2Result> {
-    return this._request(responseToken, remoteIP).then(
-      (rawResult: RawRecaptchaV2Response) => {
-        return new RecaptchaV2Result(rawResult);
-      }
-    );
+    return this._request(responseToken, remoteIP).then(rawResult => {
+      return new RecaptchaV2Result(rawResult);
+    });
   }
 }
 
@@ -125,10 +108,8 @@ export class RecaptchaV3 extends Recaptcha {
    * @param {string} [remoteIP] - Optional. The user's IP address.
    */
   verify(responseToken: string, remoteIP?: string): Promise<RecaptchaV3Result> {
-    return this._request(responseToken, remoteIP).then(
-      (rawResult: RawRecaptchaV3Response) => {
-        return new RecaptchaV3Result(rawResult);
-      }
-    );
+    return this._request(responseToken, remoteIP).then(rawResult => {
+      return new RecaptchaV3Result(rawResult);
+    });
   }
 }
