@@ -8,9 +8,7 @@ export type SupportedProtocols = 'https' | 'http';
 export type RecaptchaOptions = {
   httpAgent?: Agent;
 
-  /** The hostname that the client connects to. Setting this may be valueable for
-   *  debugging/testing or if FreeSVG changes its API address.
-   */
+  /** The hostname that the client connects to. */
   hostname?: string;
   port?: number | string;
   protocol?: SupportedProtocols;
@@ -92,10 +90,10 @@ abstract class Recaptcha implements RecaptchaOptions {
 
 export class RecaptchaV2 extends Recaptcha {
   /**
-   * Verify the reCAPTCHA V2 response token received from the client.
+   * Verify the reCAPTCHA v2 response token received from the client.
    * @param {string} responseToken - The user response token provided by the
    * reCAPTCHA client-side integration on your site.
-   * @param {string} [remoteIP] - Optional. The user's IP address.
+   * @param {string} [remoteIP] - The user's IP address.
    */
   verify(responseToken: string, remoteIP?: string): Promise<RecaptchaV2Result> {
     return this._request(responseToken, remoteIP).then(rawResult => {
@@ -106,10 +104,10 @@ export class RecaptchaV2 extends Recaptcha {
 
 export class RecaptchaV3 extends Recaptcha {
   /**
-   * Verify the reCAPTCHA V3 response token received from the client.
+   * Verify the reCAPTCHA v3 response token received from the client.
    * @param {string} responseToken - The user response token provided by the
    * reCAPTCHA client-side integration on your site.
-   * @param {string} [remoteIP] - Optional. The user's IP address.
+   * @param {string} [remoteIP] - The user's IP address.
    */
   verify(responseToken: string, remoteIP?: string): Promise<RecaptchaV3Result> {
     return this._request(responseToken, remoteIP).then(rawResult => {
