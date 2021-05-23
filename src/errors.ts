@@ -29,7 +29,7 @@ export class RecaptchaAPIError
 {
   type: 'api-error';
 
-  constructor(attrs: APIErrorCreationAttrs) {
+  constructor(attrs: APIErrorCreationAttrs = {}) {
     super(attrs);
 
     this.type = 'api-error';
@@ -44,9 +44,24 @@ export class RecaptchaConnectionError
 {
   type: 'connection-error';
 
-  constructor(attrs: ConnectionErrorCreationAttrs) {
+  constructor(attrs: ConnectionErrorCreationAttrs = {}) {
     super(attrs);
 
     this.type = 'connection-error';
+  }
+}
+
+type InvalidRequestErrorCreationAttrs = BaseErrorCreationAttrs;
+
+export class RecaptchaInvalidRequestError
+  extends RecaptchaError
+  implements InvalidRequestErrorCreationAttrs
+{
+  type: 'invalid-request-error';
+
+  constructor(attrs: InvalidRequestErrorCreationAttrs = {}) {
+    super(attrs);
+
+    this.type = 'invalid-request-error';
   }
 }
