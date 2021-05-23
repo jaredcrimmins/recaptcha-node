@@ -1,6 +1,7 @@
 import {Agent} from 'https';
 import {RecaptchaV2Result, RecaptchaV3Result} from './recaptcha-result';
 import {ClientOptions, request} from './client';
+import {URLSearchParams} from 'url';
 
 type BaseRawRecaptchaResponse = {
   challenge_ts: string;
@@ -73,12 +74,22 @@ abstract class Recaptcha implements RecaptchaOptions {
     return this._protocol;
   }
 
+  _getPathname(responseToken: string, remoteIP?: string) {
+    const searchParams = new URLSearchParams({
+      secret: this.secretKey,
+      responseToken,
+      remoteIP: remoteIP || '',
+    });
+
+    return `/recaptcha/api/siteverify?${searchParams.toString()}`;
+  }
+
   _getClientOptions(responseToken: string, remoteIP?: string): ClientOptions {
     return {
       hostname: this.hostname,
       port: this.port,
       protocol: this.protocol,
-      path: `/recaptcha/api/siteverify?secret=${this.secretKey}&response=${responseToken}&remoteip=${remoteIP}`,
+      path: this._getPathname(responseToken, remoteIP),
       timeout: this.timeout,
     };
   }
