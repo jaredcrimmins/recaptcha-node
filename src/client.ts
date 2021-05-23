@@ -1,5 +1,6 @@
 import * as errors from './errors';
 import * as https from 'https';
+import * as http from 'http';
 
 const BASE_REQUEST_OPTIONS = {
   headers: {
@@ -18,7 +19,9 @@ export type ClientOptions = https.RequestOptions & {
 export function request(options: ClientOptions): Promise<ResponseBody> {
   return new Promise((resolve, reject) => {
     const requestOptions = Object.assign({}, BASE_REQUEST_OPTIONS, options);
-    const request = https.request(requestOptions, response => {
+    const requestClient =
+      options.protocol === 'https:' ? https.request : http.request;
+    const request = requestClient(requestOptions, response => {
       const data: Uint8Array[] = [];
 
       response
