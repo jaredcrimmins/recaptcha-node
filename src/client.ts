@@ -29,17 +29,25 @@ export function request(options: ClientOptions): Promise<ResponseBody> {
           data.push(chunk);
         })
         .on('end', () => {
-          const rawData = parseResponseData(data);
-
-          if (rawData instanceof Error) {
-            reject(
-              new errors.RecaptchaAPIError({
-                original: rawData,
-                message: "The server's response was not understandable.",
-              })
-            );
+          if (
+            response.statusCode &&
+            response.statusCode >= 400 &&
+            response.statusCode <= 499
+          ) {
+            reject(new errors.RecaptchaInvalidRequestError());
           } else {
-            resolve(rawData);
+            const rawData = parseResponseData(data);
+
+            if (rawData instanceof Error) {
+              reject(
+                new errors.RecaptchaAPIError({
+                  original: rawData,
+                  message: "The server's response was not understandable.",
+                })
+              );
+            } else {
+              resolve(rawData);
+            }
           }
         });
     });
