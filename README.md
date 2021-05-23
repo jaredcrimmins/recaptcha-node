@@ -1,5 +1,5 @@
 # recaptcha-node
-A library to verify the reCAPTCHA v2/v3 response token received from the client.
+A Node.js library to verify reCAPTCHA v2/v3 response tokens received from a client.
 
 [GitHub](https://github.com/jaredcrimmins/recaptcha-node) | [NPM](https://www.npmjs.com/package/recaptcha-node)
 
