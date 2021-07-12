@@ -64,7 +64,7 @@ abstract class Recaptcha implements RecaptchaOptions {
     const searchParams = new URLSearchParams({
       secret: this.secretKey,
       response: responseToken,
-      remoteIP: remoteIP || '',
+      remoteip: remoteIP || '',
     });
 
     return `/recaptcha/api/siteverify?${searchParams.toString()}`;
