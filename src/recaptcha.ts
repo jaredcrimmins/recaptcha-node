@@ -63,7 +63,7 @@ abstract class Recaptcha implements RecaptchaOptions {
   _getPathname(responseToken: string, remoteIP?: string) {
     const searchParams = new URLSearchParams({
       secret: this.secretKey,
-      responseToken,
+      response: responseToken,
       remoteIP: remoteIP || '',
     });
 
