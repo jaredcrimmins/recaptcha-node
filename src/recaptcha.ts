@@ -60,14 +60,14 @@ abstract class Recaptcha implements RecaptchaOptions {
     return this._protocol;
   }
 
-  _getPathname(responseToken: string, remoteIP?: string) {
+  _getData(responseToken: string, remoteIP?: string) {
     const searchParams = new URLSearchParams({
       secret: this.secretKey,
       response: responseToken,
       remoteip: remoteIP || '',
     });
 
-    return `/recaptcha/api/siteverify?${searchParams.toString()}`;
+    return searchParams.toString();
   }
 
   _getClientOptions(responseToken: string, remoteIP?: string): ClientOptions {
@@ -76,7 +76,8 @@ abstract class Recaptcha implements RecaptchaOptions {
       agent: this.httpAgent,
       port: this.port,
       protocol: this.protocol,
-      path: this._getPathname(responseToken, remoteIP),
+      path: '/recaptcha/api/siteverify',
+      data: this._getData(responseToken, remoteIP),
       timeout: this.timeout,
     };
   }
