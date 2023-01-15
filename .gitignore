@@ -5,11 +5,11 @@
 # Directories
 !.github/
 !.husky
-!.vscode/
 !src/
 
 # Files
 !.commitlintrc.json
+!.editorconfig
 !.eslintignore
 !.eslintrc.json
 !.gitignore
