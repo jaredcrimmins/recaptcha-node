@@ -3,6 +3,7 @@
 /*
 
 # Directories
+!.github/
 !.husky
 !.vscode/
 !src/
